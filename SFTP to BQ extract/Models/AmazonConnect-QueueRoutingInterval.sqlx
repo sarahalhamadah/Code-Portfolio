@@ -1,0 +1,240 @@
+config {
+    type: "operations",
+    database: "CltUSAAStage",
+    tags: ["CltUSAAMergeOds"]
+}
+/***************************************************************************************************************
+  Move Amazon Connect from Filesnapshot to EdwOds
+  Created by: Sarah Al-hamadah
+  Created date: 02/01/2025
+  ******************************************************************
+  Date of Change – Initials – Ticket # - Description of change
+************************************************************************************************/
+
+DECLARE table_name STRING;
+DECLARE vdebugMsg STRING;
+
+BEGIN
+  BEGIN TRANSACTION;
+
+  -- Merge latest deduplicated snapshot rows into the target
+  MERGE  ${ref("EdwOds","AmazonConnect-QueueRoutingInterval")}  AS T
+   USING (
+    SELECT * EXCEPT(rn) FROM (
+      SELECT
+      ParentSystemId,
+      SystemId,
+      Cosa,
+      Company,
+      COALESCE(NULLIF(TRIM(Queue), ''), '') AS Queue,
+      RoutingProfile,
+      CAST(TIMESTAMP(StartInterval) AS DATETIME) AS StartInterval,
+      CAST(TIMESTAMP(EndInterval) AS DATETIME) AS EndInterval,
+      CAST(TIMESTAMP(StartInterval) AS DATETIME) AS UtcStartInterval,
+      CAST(TIMESTAMP(EndInterval) AS DATETIME) AS UtcEndInterval,
+      CAST(AgentAnswerRate AS NUMERIC) AS AgentAnswerRate,
+      CAST(CAST(ContactsMissed AS NUMERIC) AS INT64) AS ContactsMissed,
+      CAST(CAST(ContactsAbandonedIn15Seconds AS NUMERIC) AS INT64) AS ContactsAbandonedIn15Seconds,
+      CAST(CAST(ContactsAnsweredIn30Seconds AS NUMERIC) AS INT64) AS ContactsAnsweredIn30Seconds,
+      CAST(CAST(ContactsAnsweredIn60Seconds AS NUMERIC) AS INT64) AS ContactsAnsweredIn60Seconds,
+      CAST(REPLACE(ServiceLevel30Seconds, '%', '') AS NUMERIC) AS ServiceLevel30Seconds,
+      CAST(REPLACE(ServiceLevel60Seconds, '%', '') AS NUMERIC) AS ServiceLevel60Seconds,
+      CAST(AfterContactWorkTime AS NUMERIC) AS AfterContactWorkTime,
+      CAST(AgentInteractionTime AS NUMERIC) AS AgentInteractionTime,
+      CAST(AverageAfterContactWorkTime AS NUMERIC) AS AverageAftercontactWorkTime,
+      CAST(AverageAgentInteractionTime AS NUMERIC) AS AverageAgentInteractionTime,
+      CAST(AverageHandleTime AS NUMERIC) AS AverageHandleTime,
+      CAST(AverageQueueAbandonTime AS NUMERIC) AS AverageQueueAbandonTime,
+      CAST(AverageQueueAnswerTime AS NUMERIC) AS AverageQueueAnswerTime,
+      CAST(ContactHandleTime AS NUMERIC) AS ContactHandleTime,
+      CAST(CAST(ContactsAbandoned AS NUMERIC) AS INT64) AS ContactsAbandoned,
+      CAST(CAST(ContactsAgentHungUpFirst AS NUMERIC) AS INT64) AS ContactsAgentHungUpFirst,
+      CAST(CAST(ContactsHandled AS NUMERIC) AS INT64) AS ContactsHandled,
+      CAST(CAST(ContactsQueued AS NUMERIC) AS INT64) AS ContactsQueued,
+      CAST(CAST(ContactsTransferredIn AS NUMERIC) AS INT64) AS ContactsTransferredIn,
+      CAST(CAST(ContactsTransferredOut AS NUMERIC) AS INT64) AS ContactsTransferredOut,
+      CAST(MaximumQueuedTime AS NUMERIC) AS MaximumQueuedTime,
+      SESSION_USER() AS LoadBy,
+      CURRENT_TIMESTAMP() AS LoadDate,
+      'USAA_BQ_SFTP_AmazonConnectData_Import' AS LoadProcess,
+      SESSION_USER() AS CreateBy,
+      CURRENT_TIMESTAMP() AS CreateDate,
+      'USAA_BQ_SFTP_AmazonConnectData_Import' AS CreateProcess,
+      SESSION_USER() AS UpdateBy,
+      CURRENT_TIMESTAMP() AS UpdateDate,
+      'USAA_BQ_SFTP_AmazonConnectData_Import' AS UpdateProcess,
+      FALSE AS InactiveInd,
+      '' AS InactiveReason,
+      TIMESTAMP(NULL) AS InactiveDate,
+      ROW_NUMBER() OVER (
+          PARTITION BY ParentSystemId,SystemId,
+      Cosa,Company,Queue,RoutingProfile,StartInterval,EndInterval
+ORDER BY LoadDate DESC
+      ) AS rn
+ FROM ${ref("CltUSAAOds","AmazonConnect-QueueRoutingInterval-FileSnapshot-*")}
+      WHERE InactiveInd = FALSE
+   )
+    WHERE rn = 1
+  ) AS S
+  ON
+   T.ParentSystemId = S.ParentSystemId
+    AND T.SystemId = S.SystemId
+    AND T.Cosa = S.Cosa
+    AND T.Company = S.Company
+    AND T.Queue = S.Queue
+    AND T.RoutingProfile = S.RoutingProfile
+    AND T.StartInterval = S.StartInterval
+    AND T.EndInterval = S.EndInterval
+    AND T.InactiveInd      = S.InactiveInd
+    
+  WHEN MATCHED THEN
+
+    UPDATE SET
+    ParentSystemId=S.ParentSystemId,
+    SystemId=S.SystemId,
+    Cosa=S.Cosa,
+    Company=S.Company,
+    Queue=S.Queue,
+    RoutingProfile=S.RoutingProfile,
+    StartInterval=S.StartInterval,
+    EndInterval=S.EndInterval,
+    UtcStartInterval=S.UtcStartInterval,
+    UtcEndInterval=S.UtcEndInterval,
+    AgentAnswerRate=S.AgentAnswerRate,
+    ContactsMissed=S.ContactsMissed,
+    ContactsAbandonedIn15Seconds=S.ContactsAbandonedIn15Seconds,
+    ContactsAnsweredIn30Seconds=S.ContactsAnsweredIn30Seconds,
+    ContactsAnsweredIn60Seconds=S.ContactsAnsweredIn60Seconds,
+    ServiceLevel30Seconds=S.ServiceLevel30Seconds,
+    ServiceLevel60Seconds=S.ServiceLevel60Seconds,
+    AfterContactWorkTime=S.AfterContactWorkTime,
+    AgentInteractionTime=S.AgentInteractionTime,
+    AverageAftercontactWorkTime=S.AverageAftercontactWorkTime,
+    AverageAgentInteractionTime=S.AverageAgentInteractionTime,
+    AverageHandleTime=S.AverageHandleTime,
+    AverageQueueAbandonTime=S.AverageQueueAbandonTime,
+    AverageQueueAnswerTime=S.AverageQueueAnswerTime,
+    ContactHandleTime=S.ContactHandleTime,
+    ContactsAbandoned=S.ContactsAbandoned,
+    ContactsAgentHungUpFirst=S.ContactsAgentHungUpFirst,
+    ContactsHandled=S.ContactsHandled,
+    ContactsQueued=S.ContactsQueued,
+    ContactsTransferredIn=S.ContactsTransferredIn,
+    ContactsTransferredOut=S.ContactsTransferredOut,
+    MaximumQueuedTime=S.MaximumQueuedTime,
+    LoadBy                  = S.LoadBy,
+      LoadDate                = S.LoadDate,
+      LoadProcess             = S.LoadProcess,
+      CreateBy                = S.CreateBy,
+      CreateDate              = S.CreateDate,
+      CreateProcess           = S.CreateProcess,
+      UpdateBy                = S.UpdateBy,
+      UpdateDate              = CURRENT_TIMESTAMP(),
+      UpdateProcess           = S.UpdateProcess
+
+    WHEN NOT MATCHED BY TARGET THEN
+    INSERT (
+      ParentSystemId,
+      SystemId,
+      Cosa,
+      Company,
+      Queue,
+      RoutingProfile,
+      StartInterval,
+      EndInterval,
+      UtcStartInterval,
+      UtcEndInterval,
+      AgentAnswerRate,
+      ContactsMissed,
+      ContactsAbandonedIn15Seconds,
+      ContactsAnsweredIn30Seconds,
+      ContactsAnsweredIn60Seconds,
+      ServiceLevel30Seconds,
+      ServiceLevel60Seconds,
+      AfterContactWorkTime,
+      AgentInteractionTime,
+      AverageAftercontactWorkTime,
+      AverageAgentInteractionTime,
+      AverageHandleTime,
+      AverageQueueAbandonTime,
+      AverageQueueAnswerTime,
+      ContactHandleTime,
+      ContactsAbandoned,
+      ContactsAgentHungUpFirst,
+      ContactsHandled,
+      ContactsQueued,
+      ContactsTransferredIn,
+      ContactsTransferredOut,
+      MaximumQueuedTime,
+      LoadBy,
+      LoadDate,
+      LoadProcess,
+      CreateBy,
+      CreateDate,
+      CreateProcess,
+      UpdateBy,
+      UpdateDate,
+      UpdateProcess,
+      InactiveInd,
+      InactiveReason,
+      InactiveDate
+    )
+    VALUES (
+      S.ParentSystemId,
+      S.SystemId,
+      S.Cosa,
+      S.Company,
+      S.Queue,
+      S.RoutingProfile,
+      S.StartInterval,
+      S.EndInterval,
+      S.UtcStartInterval,
+      S.UtcEndInterval,
+      S.AgentAnswerRate,
+      S.ContactsMissed,
+      S.ContactsAbandonedIn15Seconds,
+      S.ContactsAnsweredIn30Seconds,
+      S.ContactsAnsweredIn60Seconds,
+      S.ServiceLevel30Seconds,
+      S.ServiceLevel60Seconds,
+      S.AfterContactWorkTime,
+      S.AgentInteractionTime,
+      S.AverageAftercontactWorkTime,
+      S.AverageAgentInteractionTime,
+      S.AverageHandleTime,
+      S.AverageQueueAbandonTime,
+      S.AverageQueueAnswerTime,
+      S.ContactHandleTime,
+      S.ContactsAbandoned,
+      S.ContactsAgentHungUpFirst,
+      S.ContactsHandled,
+      S.ContactsQueued,
+      S.ContactsTransferredIn,
+      S.ContactsTransferredOut,
+      S.MaximumQueuedTime,
+      S.LoadBy,
+      S.LoadDate,
+      S.LoadProcess,
+      S.CreateBy,
+      S.CreateDate,
+      S.CreateProcess,
+      S.UpdateBy,
+      CURRENT_TIMESTAMP(),
+      S.UpdateProcess,
+      FALSE,        -- new rows start active
+      '',           -- no reason
+      NULL          -- no inactive date
+    );
+
+    SET vdebugMsg = 'Insert executed successfully';
+    COMMIT TRANSACTION;
+
+EXCEPTION WHEN ERROR THEN
+    ROLLBACK TRANSACTION;
+    RAISE USING MESSAGE = CONCAT(
+      IFNULL('Failed while ' || vdebugMsg || '.\n',''),
+      @@error.message, '\n',
+      @@error.statement_text, '\n',
+      @@error.formatted_stack_trace
+    );
+END;

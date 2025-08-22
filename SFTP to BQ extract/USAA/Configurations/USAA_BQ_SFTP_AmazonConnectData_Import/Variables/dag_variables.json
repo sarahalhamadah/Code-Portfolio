@@ -1,0 +1,1632 @@
+{
+	"Dev": {
+		"ScheduleInterval": "30 7 * * *",
+		"ProjectNo": "843948894389",
+		"UserName": "GCP_CONN_ID",
+		"JobName": "Dag_Name",
+		"FtpSourcePath": "/inbound/testing/Amazon Connect/Inbound/historical",
+		"ProjectId": "eid-dw-dev-a5cf",
+		"StageDatasetId": "CltUSAAStage",
+		"GCSStageBucket": "tte-eid-d-gcs-usaa-stage",
+		"GCSSchemaBucket": "tte-eid-d-gcs-usaa-schema",
+		"GCSArchiveBucket": "tte-eid-d-gcs-usaa-archive",
+		"InputFileFormat": "xlsx",
+		"Systems": [
+			{
+				"FileMasks": [
+					"Bank TTEC Amazon Connect Daily Extracts*.xlsx",
+					"Bank TTEC Amazon Connect Interval Extracts*.xlsx",
+					"Bank TTEC Amazon Connect Agent Daily Extracts*.xlsx",
+					"Bank TTEC Amazon Connect Agent Queue Daily Extracts*.xlsx",
+					"Bank TTEC Amazon Connect Queue Routing Daily Extracts*.xlsx",
+					"Bank TTEC Amazon Connect Login Daily Extracts*.xlsx",
+					"Bank TTEC Amazon Connect Agent Interval Extracts*.xlsx",
+					"Bank TTEC Amazon Connect Agent Queue Interval Extracts*.xlsx",
+					"Bank TTEC Amazon Connect Queue Routing Interval Extracts*.xlsx",
+					"Bank TTEC Amazon Connect Agent Daily Extracts*.csv",
+					"Bank TTEC Amazon Connect Agent Queue Daily Extracts*.csv",
+					"Bank TTEC Amazon Connect Queue Routing Daily Extracts*.csv",
+					"Bank TTEC Amazon Connect Login Daily Extracts*.csv",
+					"Bank TTEC Amazon Connect Agent Interval Extracts*.csv",
+					"Bank TTEC Amazon Connect Agent Queue Interval Extracts*.csv",
+					"Bank TTEC Amazon Connect Queue Routing Interval Extracts*.csv",
+					"Bank TTEC Amazon Connect Agent Daily Extracts*.txt",
+					"Bank TTEC Amazon Connect Agent Queue Daily Extracts*.txt",
+					"Bank TTEC Amazon Connect Queue Routing Daily Extracts*.txt",
+					"Bank TTEC Amazon Connect Login Daily Extracts*.txt",
+					"Bank TTEC Amazon Connect Agent Interval Extracts*.txt",
+					"Bank TTEC Amazon Connect Agent Queue Interval Extracts*.txt",
+					"Bank TTEC Amazon Connect Queue Routing Interval Extracts*.txt"
+				],
+				"BankTTECAmazonConnectDailyExtracts": {
+					"EdwTableName": "AmazonConnect-AgentDaily",
+					"Sheets": [
+						"Agent",
+						"Agent Queue",
+						"Queue Routing",
+						"Login"
+					],
+					"Agent": {
+						"Sheet": "Agent",
+						"TableName": "AmazonConnect-AgentDaily-FileStage-3462",
+						"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+						"DataformTag": "AmazonConnectAgentDaily-Snapshot_3462"
+					},
+					"Agent Queue": {
+						"Sheet": "Agent Queue",
+						"TableName": "AmazonConnect-AgentQueueDaily-FileStage-3462",
+						"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+						"DataformTag": "AmazonConnectAgentQueueDaily-Snapshot_3462"
+					},
+					"Queue Routing": {
+						"Sheet": "Queue Routing",
+						"TableName": "AmazonConnect-QueueRoutingDaily-FileStage-3462",
+						"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+						"DataformTag": "AmazonConnectQueueRoutingDaily-Snapshot_3462"
+					},
+					"Login": {
+						"Sheet": "Login",
+						"TableName": "AmazonConnect-LoginDaily-FileStage-3462",
+						"StoredProcedureCall": "DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectLoginDailyValidate`(3462, 3464, oRejectedCount);",
+						"DataformTag": "AmazonConnectLoginDaily-Snapshot_3462"
+					},
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectIntervalExtracts": {
+					"EdwTableName": "AmazonConnect-AgentInterval",
+					"Sheets": [
+						"Agent",
+						"Agent Queue",
+						"Queue Routing"
+					],
+					"Agent": {
+						"Sheet": "Agent",
+						"TableName": "AmazonConnect-AgentInterval-FileStage-3462",
+						"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+						"DataformTag": "AmazonConnectAgentInterval-Snapshot_3462"
+					},
+					"Agent Queue": {
+                				"Sheet": "Agent Queue",
+                				"TableName": "AmazonConnect-AgentQueueInterval-FileStage-3462",
+               				 	"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+                				"DataformTag":"AmazonConnectAgentQueueInterval-Snapshot_3462"
+            				},
+					"Queue Routing": {
+						"Sheet": "Queue Routing",
+						"TableName": "AmazonConnect-QueueRoutingInterval-FileStage-3462",
+						"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+						"DataformTag": "AmazonConnectQueueRoutingInterval-Snapshot_3462"
+					},
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"BankTTECAmazonConnectAgentDailyExtracts": {
+					"EdwTableName": "AmazonConnect-AgentDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectAgentQueueDailyExtracts": {
+					"EdwTableName": "AmazonConnect-AgentQueueDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectQueueRoutingDailyExtracts": {
+					"EdwTableName": "AmazonConnect-QueueRoutingDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectLoginDailyExtracts": {
+					"EdwTableName": "AmazonConnect-LoginDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-LoginDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectLoginDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectLoginDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectAgentIntervalExtracts": {
+					"EdwTableName": "AmazonConnect-AgentInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentInterval-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentInterval-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"BankTTECAmazonConnectAgentQueueIntervalExtracts": {
+					"EdwTableName": "AmazonConnect-AgentQueueInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueInterval-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueInterval-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"BankTTECAmazonConnectQueueRoutingIntervalExtracts": {
+					"EdwTableName": "AmazonConnect-QueueRoutingInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingInterval-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingInterval-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"BankTTECAmazonConnectAgentDailyExtractsCSV": {
+					"EdwTableName": "AmazonConnect-AgentDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectAgentQueueDailyExtractsCSV": {
+					"EdwTableName": "AmazonConnect-AgentQueueDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectQueueRoutingDailyExtractsCSV": {
+					"EdwTableName": "AmazonConnect-QueueRoutingDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectLoginDailyExtractsCSV": {
+					"EdwTableName": "AmazonConnect-LoginDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-LoginDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectLoginDailyValidate`(3462, 3464, oRejectedCount);",
+					"DataformTag": "AmazonConnectLoginDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectAgentIntervalExtractsCSV": {
+					"EdwTableName": "AmazonConnect-AgentInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentInterval-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentInterval-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"BankTTECAmazonConnectAgentQueueIntervalExtractsCSV": {
+					"EdwTableName": "AmazonConnect-AgentQueueInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueInterval-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueInterval-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"BankTTECAmazonConnectQueueRoutingIntervalExtractsCSV": {
+					"EdwTableName": "AmazonConnect-QueueRoutingInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingInterval-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingInterval-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"BankTTECAmazonConnectAgentDailyExtractsTXT": {
+					"EdwTableName": "AmazonConnect-AgentDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectAgentQueueDailyExtractsTXT": {
+					"EdwTableName": "AmazonConnect-AgentQueueDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectQueueRoutingDailyExtractsTXT": {
+					"EdwTableName": "AmazonConnect-QueueRoutingDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectLoginDailyExtractsTXT": {
+					"EdwTableName": "AmazonConnect-LoginDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-LoginDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectLoginDailyValidate`(3462, 3464, oRejectedCount);",
+					"DataformTag": "AmazonConnectLoginDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectAgentIntervalExtractsTXT": {
+					"EdwTableName": "AmazonConnect-AgentInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentInterval-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentInterval-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"BankTTECAmazonConnectAgentQueueIntervalExtractsTXT": {
+					"EdwTableName": "AmazonConnect-AgentQueueInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueInterval-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueInterval-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"BankTTECAmazonConnectQueueRoutingIntervalExtractsTXT": {
+					"EdwTableName": "AmazonConnect-QueueRoutingInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingInterval-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingInterval-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"EmailSender": "DataIQNotification@ttec.com",
+				"EmailRecipient": "sarah.alhamadah@ttec.com",
+				"EmailMsg": "The following file was successfully uploaded to DataIQ",
+				"EmailSubject": "3462 Amazon Connect File Load Notification",
+				"ParentSystemId": "3462",
+				"SystemId": "3464",
+				"RunTypeId": "01",
+				"SystemTypeId": "47"
+			},
+			{
+				"FileMasks": [
+					"P&C TTEC Amazon Connect Daily Extracts*.xlsx",
+					"P&C TTEC Amazon Connect Interval Extracts*.xlsx",
+					"P&C TTEC Amazon Connect Agent Daily Extracts*.xlsx",
+					"P&C TTEC Amazon Connect Agent Queue Daily Extracts*.xlsx",
+					"P&C TTEC Amazon Connect Queue Routing Daily Extracts*.xlsx",
+					"P&C TTEC Amazon Connect Login Daily Extracts*.xlsx",
+					"P&C TTEC Amazon Connect Agent Interval Extracts*.xlsx",
+					"P&C TTEC Amazon Connect Agent Queue Interval Extracts*.xlsx",
+					"P&C TTEC Amazon Connect Queue Routing Interval Extracts*.xlsx",
+					"P&C TTEC Amazon Connect Agent Daily Extracts*.csv",
+					"P&C TTEC Amazon Connect Agent Queue Daily Extracts*.csv",
+					"P&C TTEC Amazon Connect Queue Routing Daily Extracts*.csv",
+					"P&C TTEC Amazon Connect Login Daily Extracts*.csv",
+					"P&C TTEC Amazon Connect Agent Interval Extracts*.csv",
+					"P&C TTEC Amazon Connect Agent Queue Interval Extracts*.csv",
+					"P&C TTEC Amazon Connect Queue Routing Interval Extracts*.csv",
+					"P&C TTEC Amazon Connect Agent Daily Extracts*.txt",
+					"P&C TTEC Amazon Connect Agent Queue Daily Extracts*.txt",
+					"P&C TTEC Amazon Connect Queue Routing Daily Extracts*.txt",
+					"P&C TTEC Amazon Connect Login Daily Extracts*.txt",
+					"P&C TTEC Amazon Connect Agent Interval Extracts*.txt",
+					"P&C TTEC Amazon Connect Agent Queue Interval Extracts*.txt",
+					"P&C TTEC Amazon Connect Queue Routing Interval Extracts*.txt"
+				],
+				"P&CTTECAmazonConnectDailyExtracts": {
+					"EdwTableName": "AmazonConnect-AgentDaily",
+					"Sheets": [
+						"Agent",
+						"Agent Queue",
+						"Queue Routing",
+						"Login"
+					],
+					"Agent": {
+						"Sheet": "Agent",
+						"TableName": "AmazonConnect-AgentDaily-FileStage-3463",
+						"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+						"DataformTag": "AmazonConnectAgentDaily-Snapshot_3463"
+					},
+					"Agent Queue": {
+						"Sheet": "Agent Queue",
+						"TableName": "AmazonConnect-AgentQueueDaily-FileStage-3463",
+						"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+						"DataformTag": "AmazonConnectAgentQueueDaily-Snapshot_3463"
+					},
+					"Queue Routing": {
+						"Sheet": "Queue Routing",
+						"TableName": "AmazonConnect-QueueRoutingDaily-FileStage-3463",
+						"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+						"DataformTag": "AmazonConnectQueueRoutingDaily-Snapshot_3463"
+					},
+					"Login": {
+						"Sheet": "Login",
+						"TableName": "AmazonConnect-LoginDaily-FileStage-3463",
+						"StoredProcedureCall": "DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectLoginDailyValidate`(3463, 3465, oRejectedCount);",
+						"DataformTag": "AmazonConnectLoginDaily-Snapshot_3463"
+					},
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectIntervalExtracts": {
+					"EdwTableName": "AmazonConnect-AgentInterval",
+					"Sheets": [
+						"Agent",
+						"Agent Queue",
+						"Queue Routing"
+					],
+					"Agent": {
+						"Sheet": "Agent",
+						"TableName": "AmazonConnect-AgentInterval-FileStage-3463",
+						"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+						"DataformTag": "AmazonConnectAgentInterval-Snapshot_3463"
+					},
+					"Agent Queue": {
+						"Sheet": "Agent Queue",
+						"TableName": "AmazonConnect-AgentQueueInterval-FileStage-3463",
+						"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+						"DataformTag": "AmazonConnectAgentQueueInterval-Snapshot_3463"
+					},
+					"Queue Routing": {
+						"Sheet": "Queue Routing",
+						"TableName": "AmazonConnect-QueueRoutingInterval-FileStage-3463",
+						"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+						"DataformTag": "AmazonConnectQueueRoutingInterval-Snapshot_3463"
+					},
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentDailyExtracts": {
+					"EdwTableName": "AmazonConnect-AgentDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentQueueDailyExtracts": {
+					"EdwTableName": "AmazonConnect-AgentQueueDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectQueueRoutingDailyExtracts": {
+					"EdwTableName": "AmazonConnect-QueueRoutingDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectLoginDailyExtracts": {
+					"EdwTableName": "AmazonConnect-LoginDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-LoginDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectLoginDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectLoginDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentIntervalExtracts": {
+					"EdwTableName": "AmazonConnect-AgentInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentInterval-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentInterval-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentQueueIntervalExtracts": {
+					"EdwTableName": "AmazonConnect-AgentQueueInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueInterval-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueInterval-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"P&CTTECAmazonConnectQueueRoutingIntervalExtracts": {
+					"EdwTableName": "AmazonConnect-QueueRoutingInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingInterval-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingInterval-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentDailyExtractsCSV": {
+					"EdwTableName": "AmazonConnect-AgentDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentQueueDailyExtractsCSV": {
+					"EdwTableName": "AmazonConnect-AgentQueueDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectQueueRoutingDailyExtractsCSV": {
+					"EdwTableName": "AmazonConnect-QueueRoutingDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectLoginDailyExtractsCSV": {
+					"EdwTableName": "AmazonConnect-LoginDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-LoginDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectLoginDailyValidate`(3463, 3465, oRejectedCount);",
+					"DataformTag": "AmazonConnectLoginDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentIntervalExtractsCSV": {
+					"EdwTableName": "AmazonConnect-AgentInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentInterval-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentInterval-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentQueueIntervalExtractsCSV": {
+					"EdwTableName": "AmazonConnect-AgentQueueInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueInterval-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueInterval-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"P&CTTECAmazonConnectQueueRoutingIntervalExtractsCSV": {
+					"EdwTableName": "AmazonConnect-QueueRoutingInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingInterval-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingInterval-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentDailyExtractsTXT": {
+					"EdwTableName": "AmazonConnect-AgentDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentQueueDailyExtractsTXT": {
+					"EdwTableName": "AmazonConnect-AgentQueueDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectQueueRoutingDailyExtractsTXT": {
+					"EdwTableName": "AmazonConnect-QueueRoutingDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectLoginDailyExtractsTXT": {
+					"EdwTableName": "AmazonConnect-LoginDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-LoginDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectLoginDailyValidate`(3463, 3465, oRejectedCount);",
+					"DataformTag": "AmazonConnectLoginDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentIntervalExtractsTXT": {
+					"EdwTableName": "AmazonConnect-AgentInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentInterval-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentInterval-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentQueueIntervalExtractsTXT": {
+					"EdwTableName": "AmazonConnect-AgentQueueInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueInterval-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueInterval-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"P&CTTECAmazonConnectQueueRoutingIntervalExtractsTXT": {
+					"EdwTableName": "AmazonConnect-QueueRoutingInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingInterval-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingInterval-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"EmailSender": "DataIQNotification@ttec.com",
+				"EmailRecipient": "sarah.alhamadah@ttec.com",
+				"EmailMsg": "The following file was successfully uploaded to DataIQ",
+				"EmailSubject": "3463 Amazon Connect File Load Notification",
+				"ParentSystemId": "3463",
+				"SystemId": "3465",
+				"RunTypeId": "01",
+				"SystemTypeId": "47"
+			}
+		]
+	},
+	"Qa": {
+		"ScheduleInterval": "30 7 * * *",
+		"ProjectNo": "58015455050",
+		"UserName": "GCP_CONN_ID",
+		"JobName": "Dag_Name",
+		"FtpSourcePath": "/inbound/testing/Amazon Connect/Inbound/historical",
+		"ProjectId": "eid-dw-cert-c196",
+		"StageDatasetId": "CltUSAAStage",
+		"GCSStageBucket": "tte-eid-q-gcs-usaa-stage",
+		"GCSSchemaBucket": "tte-eid-q-gcs-usaa-schema",
+		"GCSArchiveBucket": "tte-eid-q-gcs-usaa-archive",
+		"Secret_ID": "58015455050",
+		"InputFileFormat": "xlsx",
+		"Systems": [
+			{
+				"FileMasks": [
+					"Bank TTEC Amazon Connect Daily Extracts*.xlsx",
+					"Bank TTEC Amazon Connect Interval Extracts*.xlsx",
+					"Bank TTEC Amazon Connect Agent Daily Extracts*.xlsx",
+					"Bank TTEC Amazon Connect Agent Queue Daily Extracts*.xlsx",
+					"Bank TTEC Amazon Connect Queue Routing Daily Extracts*.xlsx",
+					"Bank TTEC Amazon Connect Login Daily Extracts*.xlsx",
+					"Bank TTEC Amazon Connect Agent Interval Extracts*.xlsx",
+					"Bank TTEC Amazon Connect Agent Queue Interval Extracts*.xlsx",
+					"Bank TTEC Amazon Connect Queue Routing Interval Extracts*.xlsx",
+					"Bank TTEC Amazon Connect Agent Daily Extracts*.csv",
+					"Bank TTEC Amazon Connect Agent Queue Daily Extracts*.csv",
+					"Bank TTEC Amazon Connect Queue Routing Daily Extracts*.csv",
+					"Bank TTEC Amazon Connect Login Daily Extracts*.csv",
+					"Bank TTEC Amazon Connect Agent Interval Extracts*.csv",
+					"Bank TTEC Amazon Connect Agent Queue Interval Extracts*.csv",
+					"Bank TTEC Amazon Connect Queue Routing Interval Extracts*.csv",
+					"Bank TTEC Amazon Connect Agent Daily Extracts*.txt",
+					"Bank TTEC Amazon Connect Agent Queue Daily Extracts*.txt",
+					"Bank TTEC Amazon Connect Queue Routing Daily Extracts*.txt",
+					"Bank TTEC Amazon Connect Login Daily Extracts*.txt",
+					"Bank TTEC Amazon Connect Agent Interval Extracts*.txt",
+					"Bank TTEC Amazon Connect Agent Queue Interval Extracts*.txt",
+					"Bank TTEC Amazon Connect Queue Routing Interval Extracts*.txt"
+				],
+				"BankTTECAmazonConnectDailyExtracts": {
+					"EdwTableName": "AmazonConnect-AgentDaily",
+					"Sheets": [
+						"Agent",
+						"Agent Queue",
+						"Queue Routing",
+						"Login"
+					],
+					"Agent": {
+						"Sheet": "Agent",
+						"TableName": "AmazonConnect-AgentDaily-FileStage-3462",
+						"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+						"DataformTag": "AmazonConnectAgentDaily-Snapshot_3462"
+					},
+					"Agent Queue": {
+						"Sheet": "Agent Queue",
+						"TableName": "AmazonConnect-AgentQueueDaily-FileStage-3462",
+						"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+						"DataformTag": "AmazonConnectAgentQueueDaily-Snapshot_3462"
+					},
+					"Queue Routing": {
+						"Sheet": "Queue Routing",
+						"TableName": "AmazonConnect-QueueRoutingDaily-FileStage-3462",
+						"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+						"DataformTag": "AmazonConnectQueueRoutingDaily-Snapshot_3462"
+					},
+					"Login": {
+						"Sheet": "Login",
+						"TableName": "AmazonConnect-LoginDaily-FileStage-3462",
+						"StoredProcedureCall": "DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectLoginDailyValidate`(3462, 3464, oRejectedCount);",
+						"DataformTag": "AmazonConnectLoginDaily-Snapshot_3462"
+					},
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectIntervalExtracts": {
+					"EdwTableName": "AmazonConnect-AgentInterval",
+					"Sheets": [
+						"Agent",
+						"Agent Queue",
+						"Queue Routing"
+					],
+					"Agent": {
+						"Sheet": "Agent",
+						"TableName": "AmazonConnect-AgentInterval-FileStage-3462",
+						"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+						"DataformTag": "AmazonConnectAgentInterval-Snapshot_3462"
+					},
+					"Agent Queue": {
+                				"Sheet": "Agent Queue",
+                				"TableName": "AmazonConnect-AgentQueueInterval-FileStage-3462",
+               				 	"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+                				"DataformTag":"AmazonConnectAgentQueueInterval-Snapshot_3462"
+            				},
+					"Queue Routing": {
+						"Sheet": "Queue Routing",
+						"TableName": "AmazonConnect-QueueRoutingInterval-FileStage-3462",
+						"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+						"DataformTag": "AmazonConnectQueueRoutingInterval-Snapshot_3462"
+					},
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"BankTTECAmazonConnectAgentDailyExtracts": {
+					"EdwTableName": "AmazonConnect-AgentDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectAgentQueueDailyExtracts": {
+					"EdwTableName": "AmazonConnect-AgentQueueDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectQueueRoutingDailyExtracts": {
+					"EdwTableName": "AmazonConnect-QueueRoutingDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectLoginDailyExtracts": {
+					"EdwTableName": "AmazonConnect-LoginDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-LoginDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectLoginDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectLoginDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectAgentIntervalExtracts": {
+					"EdwTableName": "AmazonConnect-AgentInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentInterval-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentInterval-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"BankTTECAmazonConnectAgentQueueIntervalExtracts": {
+					"EdwTableName": "AmazonConnect-AgentQueueInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueInterval-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueInterval-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"BankTTECAmazonConnectQueueRoutingIntervalExtracts": {
+					"EdwTableName": "AmazonConnect-QueueRoutingInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingInterval-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingInterval-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"BankTTECAmazonConnectAgentDailyExtractsCSV": {
+					"EdwTableName": "AmazonConnect-AgentDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectAgentQueueDailyExtractsCSV": {
+					"EdwTableName": "AmazonConnect-AgentQueueDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectQueueRoutingDailyExtractsCSV": {
+					"EdwTableName": "AmazonConnect-QueueRoutingDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectLoginDailyExtractsCSV": {
+					"EdwTableName": "AmazonConnect-LoginDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-LoginDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectLoginDailyValidate`(3462, 3464, oRejectedCount);",
+					"DataformTag": "AmazonConnectLoginDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectAgentIntervalExtractsCSV": {
+					"EdwTableName": "AmazonConnect-AgentInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentInterval-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentInterval-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"BankTTECAmazonConnectAgentQueueIntervalExtractsCSV": {
+					"EdwTableName": "AmazonConnect-AgentQueueInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueInterval-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueInterval-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"BankTTECAmazonConnectQueueRoutingIntervalExtractsCSV": {
+					"EdwTableName": "AmazonConnect-QueueRoutingInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingInterval-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingInterval-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"BankTTECAmazonConnectAgentDailyExtractsTXT": {
+					"EdwTableName": "AmazonConnect-AgentDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectAgentQueueDailyExtractsTXT": {
+					"EdwTableName": "AmazonConnect-AgentQueueDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectQueueRoutingDailyExtractsTXT": {
+					"EdwTableName": "AmazonConnect-QueueRoutingDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectLoginDailyExtractsTXT": {
+					"EdwTableName": "AmazonConnect-LoginDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-LoginDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectLoginDailyValidate`(3462, 3464, oRejectedCount);",
+					"DataformTag": "AmazonConnectLoginDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectAgentIntervalExtractsTXT": {
+					"EdwTableName": "AmazonConnect-AgentInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentInterval-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentInterval-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"BankTTECAmazonConnectAgentQueueIntervalExtractsTXT": {
+					"EdwTableName": "AmazonConnect-AgentQueueInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueInterval-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueInterval-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"BankTTECAmazonConnectQueueRoutingIntervalExtractsTXT": {
+					"EdwTableName": "AmazonConnect-QueueRoutingInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingInterval-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingInterval-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"EmailSender": "DataIQNotification@ttec.com",
+				"EmailRecipient": "sarah.alhamadah@ttec.com",
+				"EmailMsg": "The following file was successfully uploaded to DataIQ",
+				"EmailSubject": "3462 Amazon Connect File Load Notification",
+				"ParentSystemId": "3462",
+				"SystemId": "3464",
+				"RunTypeId": "01",
+				"SystemTypeId": "47"
+			},
+			{
+				"FileMasks": [
+					"P&C TTEC Amazon Connect Daily Extracts*.xlsx",
+					"P&C TTEC Amazon Connect Interval Extracts*.xlsx",
+					"P&C TTEC Amazon Connect Agent Daily Extracts*.xlsx",
+					"P&C TTEC Amazon Connect Agent Queue Daily Extracts*.xlsx",
+					"P&C TTEC Amazon Connect Queue Routing Daily Extracts*.xlsx",
+					"P&C TTEC Amazon Connect Login Daily Extracts*.xlsx",
+					"P&C TTEC Amazon Connect Agent Interval Extracts*.xlsx",
+					"P&C TTEC Amazon Connect Agent Queue Interval Extracts*.xlsx",
+					"P&C TTEC Amazon Connect Queue Routing Interval Extracts*.xlsx",
+					"P&C TTEC Amazon Connect Agent Daily Extracts*.csv",
+					"P&C TTEC Amazon Connect Agent Queue Daily Extracts*.csv",
+					"P&C TTEC Amazon Connect Queue Routing Daily Extracts*.csv",
+					"P&C TTEC Amazon Connect Login Daily Extracts*.csv",
+					"P&C TTEC Amazon Connect Agent Interval Extracts*.csv",
+					"P&C TTEC Amazon Connect Agent Queue Interval Extracts*.csv",
+					"P&C TTEC Amazon Connect Queue Routing Interval Extracts*.csv",
+					"P&C TTEC Amazon Connect Agent Daily Extracts*.txt",
+					"P&C TTEC Amazon Connect Agent Queue Daily Extracts*.txt",
+					"P&C TTEC Amazon Connect Queue Routing Daily Extracts*.txt",
+					"P&C TTEC Amazon Connect Login Daily Extracts*.txt",
+					"P&C TTEC Amazon Connect Agent Interval Extracts*.txt",
+					"P&C TTEC Amazon Connect Agent Queue Interval Extracts*.txt",
+					"P&C TTEC Amazon Connect Queue Routing Interval Extracts*.txt"
+				],
+				"P&CTTECAmazonConnectDailyExtracts": {
+					"EdwTableName": "AmazonConnect-AgentDaily",
+					"Sheets": [
+						"Agent",
+						"Agent Queue",
+						"Queue Routing",
+						"Login"
+					],
+					"Agent": {
+						"Sheet": "Agent",
+						"TableName": "AmazonConnect-AgentDaily-FileStage-3463",
+						"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+						"DataformTag": "AmazonConnectAgentDaily-Snapshot_3463"
+					},
+					"Agent Queue": {
+						"Sheet": "Agent Queue",
+						"TableName": "AmazonConnect-AgentQueueDaily-FileStage-3463",
+						"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+						"DataformTag": "AmazonConnectAgentQueueDaily-Snapshot_3463"
+					},
+					"Queue Routing": {
+						"Sheet": "Queue Routing",
+						"TableName": "AmazonConnect-QueueRoutingDaily-FileStage-3463",
+						"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+						"DataformTag": "AmazonConnectQueueRoutingDaily-Snapshot_3463"
+					},
+					"Login": {
+						"Sheet": "Login",
+						"TableName": "AmazonConnect-LoginDaily-FileStage-3463",
+						"StoredProcedureCall": "DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectLoginDailyValidate`(3463, 3465, oRejectedCount);",
+						"DataformTag": "AmazonConnectLoginDaily-Snapshot_3463"
+					},
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectIntervalExtracts": {
+					"EdwTableName": "AmazonConnect-AgentInterval",
+					"Sheets": [
+						"Agent",
+						"Agent Queue",
+						"Queue Routing"
+					],
+					"Agent": {
+						"Sheet": "Agent",
+						"TableName": "AmazonConnect-AgentInterval-FileStage-3463",
+						"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+						"DataformTag": "AmazonConnectAgentInterval-Snapshot_3463"
+					},
+					"Agent Queue": {
+						"Sheet": "Agent Queue",
+						"TableName": "AmazonConnect-AgentQueueInterval-FileStage-3463",
+						"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+						"DataformTag": "AmazonConnectAgentQueueInterval-Snapshot_3463"
+					},
+					"Queue Routing": {
+						"Sheet": "Queue Routing",
+						"TableName": "AmazonConnect-QueueRoutingInterval-FileStage-3463",
+						"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+						"DataformTag": "AmazonConnectQueueRoutingInterval-Snapshot_3463"
+					},
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentDailyExtracts": {
+					"EdwTableName": "AmazonConnect-AgentDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentQueueDailyExtracts": {
+					"EdwTableName": "AmazonConnect-AgentQueueDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectQueueRoutingDailyExtracts": {
+					"EdwTableName": "AmazonConnect-QueueRoutingDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectLoginDailyExtracts": {
+					"EdwTableName": "AmazonConnect-LoginDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-LoginDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectLoginDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectLoginDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentIntervalExtracts": {
+					"EdwTableName": "AmazonConnect-AgentInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentInterval-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentInterval-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentQueueIntervalExtracts": {
+					"EdwTableName": "AmazonConnect-AgentQueueInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueInterval-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueInterval-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"P&CTTECAmazonConnectQueueRoutingIntervalExtracts": {
+					"EdwTableName": "AmazonConnect-QueueRoutingInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingInterval-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingInterval-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentDailyExtractsCSV": {
+					"EdwTableName": "AmazonConnect-AgentDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentQueueDailyExtractsCSV": {
+					"EdwTableName": "AmazonConnect-AgentQueueDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectQueueRoutingDailyExtractsCSV": {
+					"EdwTableName": "AmazonConnect-QueueRoutingDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectLoginDailyExtractsCSV": {
+					"EdwTableName": "AmazonConnect-LoginDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-LoginDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectLoginDailyValidate`(3463, 3465, oRejectedCount);",
+					"DataformTag": "AmazonConnectLoginDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentIntervalExtractsCSV": {
+					"EdwTableName": "AmazonConnect-AgentInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentInterval-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentInterval-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentQueueIntervalExtractsCSV": {
+					"EdwTableName": "AmazonConnect-AgentQueueInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueInterval-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueInterval-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"P&CTTECAmazonConnectQueueRoutingIntervalExtractsCSV": {
+					"EdwTableName": "AmazonConnect-QueueRoutingInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingInterval-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingInterval-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentDailyExtractsTXT": {
+					"EdwTableName": "AmazonConnect-AgentDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentQueueDailyExtractsTXT": {
+					"EdwTableName": "AmazonConnect-AgentQueueDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectQueueRoutingDailyExtractsTXT": {
+					"EdwTableName": "AmazonConnect-QueueRoutingDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectLoginDailyExtractsTXT": {
+					"EdwTableName": "AmazonConnect-LoginDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-LoginDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectLoginDailyValidate`(3463, 3465, oRejectedCount);",
+					"DataformTag": "AmazonConnectLoginDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentIntervalExtractsTXT": {
+					"EdwTableName": "AmazonConnect-AgentInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentInterval-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentInterval-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentQueueIntervalExtractsTXT": {
+					"EdwTableName": "AmazonConnect-AgentQueueInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueInterval-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueInterval-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"P&CTTECAmazonConnectQueueRoutingIntervalExtractsTXT": {
+					"EdwTableName": "AmazonConnect-QueueRoutingInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingInterval-FileStage-3463",
+					"StoredProcedureCall":  "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingInterval-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"EmailSender": "DataIQNotification@ttec.com",
+				"EmailRecipient": "sarah.alhamadah@ttec.com",
+				"EmailMsg": "The following file was successfully uploaded to DataIQ",
+				"EmailSubject": "3463 Amazon Connect File Load Notification",
+				"ParentSystemId": "3463",
+				"SystemId": "3465",
+				"RunTypeId": "01",
+				"SystemTypeId": "47"
+			}
+		]
+	},
+	"Prod": {
+		"ScheduleInterval": "30 7 * * *",
+		"ProjectNo": "405746011260",
+		"UserName": "GCP_CONN_ID",
+		"JobName": "Dag_Name",
+		"FtpSourcePath": "/inbound/testing/Amazon Connect/Inbound/historical",
+		"ProjectId": "data-warehouse-sbx",
+		"StageDatasetId": "CltUSAAStage",
+		"GCSStageBucket": "tte-eid-p-gcs-usaa-stage",
+		"GCSSchemaBucket": "tte-eid-p-gcs-usaa-schema",
+		"GCSArchiveBucket": "tte-eid-p-gcs-usaa-archive",
+		"InputFileFormat": "xlsx",
+		"Systems": [
+			{
+				"FileMasks": [
+					"Bank TTEC Amazon Connect Daily Extracts*.xlsx",
+					"Bank TTEC Amazon Connect Interval Extracts*.xlsx",
+					"Bank TTEC Amazon Connect Agent Daily Extracts*.xlsx",
+					"Bank TTEC Amazon Connect Agent Queue Daily Extracts*.xlsx",
+					"Bank TTEC Amazon Connect Queue Routing Daily Extracts*.xlsx",
+					"Bank TTEC Amazon Connect Login Daily Extracts*.xlsx",
+					"Bank TTEC Amazon Connect Agent Interval Extracts*.xlsx",
+					"Bank TTEC Amazon Connect Agent Queue Interval Extracts*.xlsx",
+					"Bank TTEC Amazon Connect Queue Routing Interval Extracts*.xlsx",
+					"Bank TTEC Amazon Connect Agent Daily Extracts*.csv",
+					"Bank TTEC Amazon Connect Agent Queue Daily Extracts*.csv",
+					"Bank TTEC Amazon Connect Queue Routing Daily Extracts*.csv",
+					"Bank TTEC Amazon Connect Login Daily Extracts*.csv",
+					"Bank TTEC Amazon Connect Agent Interval Extracts*.csv",
+					"Bank TTEC Amazon Connect Agent Queue Interval Extracts*.csv",
+					"Bank TTEC Amazon Connect Queue Routing Interval Extracts*.csv",
+					"Bank TTEC Amazon Connect Agent Daily Extracts*.txt",
+					"Bank TTEC Amazon Connect Agent Queue Daily Extracts*.txt",
+					"Bank TTEC Amazon Connect Queue Routing Daily Extracts*.txt",
+					"Bank TTEC Amazon Connect Login Daily Extracts*.txt",
+					"Bank TTEC Amazon Connect Agent Interval Extracts*.txt",
+					"Bank TTEC Amazon Connect Agent Queue Interval Extracts*.txt",
+					"Bank TTEC Amazon Connect Queue Routing Interval Extracts*.txt"
+				],
+				"BankTTECAmazonConnectDailyExtracts": {
+					"EdwTableName": "AmazonConnect-AgentDaily",
+					"Sheets": [
+						"Agent",
+						"Agent Queue",
+						"Queue Routing",
+						"Login"
+					],
+					"Agent": {
+						"Sheet": "Agent",
+						"TableName": "AmazonConnect-AgentDaily-FileStage-3462",
+						"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+						"DataformTag": "AmazonConnectAgentDaily-Snapshot_3462"
+					},
+					"Agent Queue": {
+						"Sheet": "Agent Queue",
+						"TableName": "AmazonConnect-AgentQueueDaily-FileStage-3462",
+						"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+						"DataformTag": "AmazonConnectAgentQueueDaily-Snapshot_3462"
+					},
+					"Queue Routing": {
+						"Sheet": "Queue Routing",
+						"TableName": "AmazonConnect-QueueRoutingDaily-FileStage-3462",
+						"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+						"DataformTag": "AmazonConnectQueueRoutingDaily-Snapshot_3462"
+					},
+					"Login": {
+						"Sheet": "Login",
+						"TableName": "AmazonConnect-LoginDaily-FileStage-3462",
+						"StoredProcedureCall": "DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectLoginDailyValidate`(3462, 3464, oRejectedCount);",
+						"DataformTag": "AmazonConnectLoginDaily-Snapshot_3462"
+					},
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectIntervalExtracts": {
+					"EdwTableName": "AmazonConnect-AgentInterval",
+					"Sheets": [
+						"Agent",
+						"Agent Queue",
+						"Queue Routing"
+					],
+					"Agent": {
+						"Sheet": "Agent",
+						"TableName": "AmazonConnect-AgentInterval-FileStage-3462",
+						"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+						"DataformTag": "AmazonConnectAgentInterval-Snapshot_3462"
+					},
+					"Agent Queue": {
+                				"Sheet": "Agent Queue",
+                				"TableName": "AmazonConnect-AgentQueueInterval-FileStage-3462",
+               				 	"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+                				"DataformTag":"AmazonConnectAgentQueueInterval-Snapshot_3462"
+            				},
+					"Queue Routing": {
+						"Sheet": "Queue Routing",
+						"TableName": "AmazonConnect-QueueRoutingInterval-FileStage-3462",
+						"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+						"DataformTag": "AmazonConnectQueueRoutingInterval-Snapshot_3462"
+					},
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"BankTTECAmazonConnectAgentDailyExtracts": {
+					"EdwTableName": "AmazonConnect-AgentDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectAgentQueueDailyExtracts": {
+					"EdwTableName": "AmazonConnect-AgentQueueDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectQueueRoutingDailyExtracts": {
+					"EdwTableName": "AmazonConnect-QueueRoutingDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectLoginDailyExtracts": {
+					"EdwTableName": "AmazonConnect-LoginDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-LoginDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectLoginDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectLoginDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectAgentIntervalExtracts": {
+					"EdwTableName": "AmazonConnect-AgentInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentInterval-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentInterval-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"BankTTECAmazonConnectAgentQueueIntervalExtracts": {
+					"EdwTableName": "AmazonConnect-AgentQueueInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueInterval-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueInterval-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"BankTTECAmazonConnectQueueRoutingIntervalExtracts": {
+					"EdwTableName": "AmazonConnect-QueueRoutingInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingInterval-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingInterval-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"BankTTECAmazonConnectAgentDailyExtractsCSV": {
+					"EdwTableName": "AmazonConnect-AgentDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectAgentQueueDailyExtractsCSV": {
+					"EdwTableName": "AmazonConnect-AgentQueueDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectQueueRoutingDailyExtractsCSV": {
+					"EdwTableName": "AmazonConnect-QueueRoutingDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectLoginDailyExtractsCSV": {
+					"EdwTableName": "AmazonConnect-LoginDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-LoginDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectLoginDailyValidate`(3462, 3464, oRejectedCount);",
+					"DataformTag": "AmazonConnectLoginDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectAgentIntervalExtractsCSV": {
+					"EdwTableName": "AmazonConnect-AgentInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentInterval-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentInterval-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"BankTTECAmazonConnectAgentQueueIntervalExtractsCSV": {
+					"EdwTableName": "AmazonConnect-AgentQueueInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueInterval-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueInterval-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"BankTTECAmazonConnectQueueRoutingIntervalExtractsCSV": {
+					"EdwTableName": "AmazonConnect-QueueRoutingInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingInterval-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingInterval-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"BankTTECAmazonConnectAgentDailyExtractsTXT": {
+					"EdwTableName": "AmazonConnect-AgentDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectAgentQueueDailyExtractsTXT": {
+					"EdwTableName": "AmazonConnect-AgentQueueDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectQueueRoutingDailyExtractsTXT": {
+					"EdwTableName": "AmazonConnect-QueueRoutingDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingDailyValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectLoginDailyExtractsTXT": {
+					"EdwTableName": "AmazonConnect-LoginDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-LoginDaily-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectLoginDailyValidate`(3462, 3464, oRejectedCount);",
+					"DataformTag": "AmazonConnectLoginDaily-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"BankTTECAmazonConnectAgentIntervalExtractsTXT": {
+					"EdwTableName": "AmazonConnect-AgentInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentInterval-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentInterval-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"BankTTECAmazonConnectAgentQueueIntervalExtractsTXT": {
+					"EdwTableName": "AmazonConnect-AgentQueueInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueInterval-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueInterval-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"BankTTECAmazonConnectQueueRoutingIntervalExtractsTXT": {
+					"EdwTableName": "AmazonConnect-QueueRoutingInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingInterval-FileStage-3462",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingIntervalValidate`(3462, 3464, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingInterval-Snapshot_3462",
+					"Input_Folder": "Bank_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"EmailSender": "DataIQNotification@ttec.com",
+				"EmailRecipient": "sarah.alhamadah@ttec.com",
+				"EmailMsg": "The following file was successfully uploaded to DataIQ",
+				"EmailSubject": "3462 Amazon Connect File Load Notification",
+				"ParentSystemId": "3462",
+				"SystemId": "3464",
+				"RunTypeId": "01",
+				"SystemTypeId": "47"
+			},
+			{
+				"FileMasks": [
+					"P&C TTEC Amazon Connect Daily Extracts*.xlsx",
+					"P&C TTEC Amazon Connect Interval Extracts*.xlsx",
+					"P&C TTEC Amazon Connect Agent Daily Extracts*.xlsx",
+					"P&C TTEC Amazon Connect Agent Queue Daily Extracts*.xlsx",
+					"P&C TTEC Amazon Connect Queue Routing Daily Extracts*.xlsx",
+					"P&C TTEC Amazon Connect Login Daily Extracts*.xlsx",
+					"P&C TTEC Amazon Connect Agent Interval Extracts*.xlsx",
+					"P&C TTEC Amazon Connect Agent Queue Interval Extracts*.xlsx",
+					"P&C TTEC Amazon Connect Queue Routing Interval Extracts*.xlsx",
+					"P&C TTEC Amazon Connect Agent Daily Extracts*.csv",
+					"P&C TTEC Amazon Connect Agent Queue Daily Extracts*.csv",
+					"P&C TTEC Amazon Connect Queue Routing Daily Extracts*.csv",
+					"P&C TTEC Amazon Connect Login Daily Extracts*.csv",
+					"P&C TTEC Amazon Connect Agent Interval Extracts*.csv",
+					"P&C TTEC Amazon Connect Agent Queue Interval Extracts*.csv",
+					"P&C TTEC Amazon Connect Queue Routing Interval Extracts*.csv",
+					"P&C TTEC Amazon Connect Agent Daily Extracts*.txt",
+					"P&C TTEC Amazon Connect Agent Queue Daily Extracts*.txt",
+					"P&C TTEC Amazon Connect Queue Routing Daily Extracts*.txt",
+					"P&C TTEC Amazon Connect Login Daily Extracts*.txt",
+					"P&C TTEC Amazon Connect Agent Interval Extracts*.txt",
+					"P&C TTEC Amazon Connect Agent Queue Interval Extracts*.txt",
+					"P&C TTEC Amazon Connect Queue Routing Interval Extracts*.txt"
+				],
+				"P&CTTECAmazonConnectDailyExtracts": {
+					"EdwTableName": "AmazonConnect-AgentDaily",
+					"Sheets": [
+						"Agent",
+						"Agent Queue",
+						"Queue Routing",
+						"Login"
+					],
+					"Agent": {
+						"Sheet": "Agent",
+						"TableName": "AmazonConnect-AgentDaily-FileStage-3463",
+						"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+						"DataformTag": "AmazonConnectAgentDaily-Snapshot_3463"
+					},
+					"Agent Queue": {
+						"Sheet": "Agent Queue",
+						"TableName": "AmazonConnect-AgentQueueDaily-FileStage-3463",
+						"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+						"DataformTag": "AmazonConnectAgentQueueDaily-Snapshot_3463"
+					},
+					"Queue Routing": {
+						"Sheet": "Queue Routing",
+						"TableName": "AmazonConnect-QueueRoutingDaily-FileStage-3463",
+						"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+						"DataformTag": "AmazonConnectQueueRoutingDaily-Snapshot_3463"
+					},
+					"Login": {
+						"Sheet": "Login",
+						"TableName": "AmazonConnect-LoginDaily-FileStage-3463",
+						"StoredProcedureCall": "DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectLoginDailyValidate`(3463, 3465, oRejectedCount);",
+						"DataformTag": "AmazonConnectLoginDaily-Snapshot_3463"
+					},
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectIntervalExtracts": {
+					"EdwTableName": "AmazonConnect-AgentInterval",
+					"Sheets": [
+						"Agent",
+						"Agent Queue",
+						"Queue Routing"
+					],
+					"Agent": {
+						"Sheet": "Agent",
+						"TableName": "AmazonConnect-AgentInterval-FileStage-3463",
+						"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+						"DataformTag": "AmazonConnectAgentInterval-Snapshot_3463"
+					},
+					"Agent Queue": {
+						"Sheet": "Agent Queue",
+						"TableName": "AmazonConnect-AgentQueueInterval-FileStage-3463",
+						"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+						"DataformTag": "AmazonConnectAgentQueueInterval-Snapshot_3463"
+					},
+					"Queue Routing": {
+						"Sheet": "Queue Routing",
+						"TableName": "AmazonConnect-QueueRoutingInterval-FileStage-3463",
+						"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+						"DataformTag": "AmazonConnectQueueRoutingInterval-Snapshot_3463"
+					},
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentDailyExtracts": {
+					"EdwTableName": "AmazonConnect-AgentDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentQueueDailyExtracts": {
+					"EdwTableName": "AmazonConnect-AgentQueueDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectQueueRoutingDailyExtracts": {
+					"EdwTableName": "AmazonConnect-QueueRoutingDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectLoginDailyExtracts": {
+					"EdwTableName": "AmazonConnect-LoginDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-LoginDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectLoginDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectLoginDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentIntervalExtracts": {
+					"EdwTableName": "AmazonConnect-AgentInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentInterval-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentInterval-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentQueueIntervalExtracts": {
+					"EdwTableName": "AmazonConnect-AgentQueueInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueInterval-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueInterval-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"P&CTTECAmazonConnectQueueRoutingIntervalExtracts": {
+					"EdwTableName": "AmazonConnect-QueueRoutingInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingInterval-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingInterval-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentDailyExtractsCSV": {
+					"EdwTableName": "AmazonConnect-AgentDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentQueueDailyExtractsCSV": {
+					"EdwTableName": "AmazonConnect-AgentQueueDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectQueueRoutingDailyExtractsCSV": {
+					"EdwTableName": "AmazonConnect-QueueRoutingDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectLoginDailyExtractsCSV": {
+					"EdwTableName": "AmazonConnect-LoginDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-LoginDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectLoginDailyValidate`(3463, 3465, oRejectedCount);",
+					"DataformTag": "AmazonConnectLoginDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentIntervalExtractsCSV": {
+					"EdwTableName": "AmazonConnect-AgentInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentInterval-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentInterval-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentQueueIntervalExtractsCSV": {
+					"EdwTableName": "AmazonConnect-AgentQueueInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueInterval-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueInterval-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"P&CTTECAmazonConnectQueueRoutingIntervalExtractsCSV": {
+					"EdwTableName": "AmazonConnect-QueueRoutingInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingInterval-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingInterval-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentDailyExtractsTXT": {
+					"EdwTableName": "AmazonConnect-AgentDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentQueueDailyExtractsTXT": {
+					"EdwTableName": "AmazonConnect-AgentQueueDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectQueueRoutingDailyExtractsTXT": {
+					"EdwTableName": "AmazonConnect-QueueRoutingDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingDailyValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectLoginDailyExtractsTXT": {
+					"EdwTableName": "AmazonConnect-LoginDaily",
+					"Sheets": [],
+					"TableName": "AmazonConnect-LoginDaily-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectLoginDailyValidate`(3463, 3465, oRejectedCount);",
+					"DataformTag": "AmazonConnectLoginDaily-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Daily_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentIntervalExtractsTXT": {
+					"EdwTableName": "AmazonConnect-AgentInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentInterval-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentInterval-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"P&CTTECAmazonConnectAgentQueueIntervalExtractsTXT": {
+					"EdwTableName": "AmazonConnect-AgentQueueInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-AgentQueueInterval-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectAgentQueueIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectAgentQueueInterval-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"P&CTTECAmazonConnectQueueRoutingIntervalExtractsTXT": {
+					"EdwTableName": "AmazonConnect-QueueRoutingInterval",
+					"Sheets": [],
+					"TableName": "AmazonConnect-QueueRoutingInterval-FileStage-3463",
+					"StoredProcedureCall": "DECLARE oMinDate DATETIME DEFAULT NULL; DECLARE oMaxDate DATETIME DEFAULT NULL; DECLARE oRejectedCount INT64 DEFAULT NULL; CALL `CltUSAAStage.sp_FileAmazonConnectQueueRoutingIntervalValidate`(3463, 3465, oMinDate, oMaxDate, oRejectedCount)",
+					"DataformTag": "AmazonConnectQueueRoutingInterval-Snapshot_3463",
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Interval_Extracts"
+				},
+				"EmailSender": "DataIQNotification@ttec.com",
+				"EmailRecipient": "sarah.alhamadah@ttec.com",
+				"EmailMsg": "The following file was successfully uploaded to DataIQ",
+				"EmailSubject": "3463 Amazon Connect File Load Notification",
+				"ParentSystemId": "3463",
+				"SystemId": "3465",
+				"RunTypeId": "01",
+				"SystemTypeId": "47"
+			}
+		]
+	}
+}

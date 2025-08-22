@@ -1,0 +1,152 @@
+config {
+    type: "operations",
+    database: "CltUSAAStage",
+    tags: ["CltUSAAMergeOds"]
+}
+/***************************************************************************************************************
+  Move Amazon Connect from Filesnapshot to EdwOds
+  Created by: Sarah Al-hamadah
+  Created date: 02/01/2025
+  ******************************************************************
+  Date of Change – Initials – Ticket # - Description of change
+************************************************************************************************/
+
+DECLARE table_name STRING;
+DECLARE vdebugMsg STRING;
+
+BEGIN
+  BEGIN TRANSACTION;
+
+  MERGE 
+  ${ref("EdwOds","AmazonConnect-LoginDaily")} AS T
+  USING (
+    SELECT * EXCEPT(rn) FROM (
+      SELECT
+       ParentSystemId,
+      SystemId,
+      Cosa,
+      Company,
+      Agent,
+      FirstName,
+      LastName,
+      RoutingProfile,
+      Login,
+      FORMAT_TIMESTAMP('%m/%d/%Y %I:%M:%S %p',SAFE.PARSE_TIMESTAMP('%b %e, %Y %I:%M:%S %p', Logout)) AS Logout,      
+      CAST(Duration AS NUMERIC) AS Duration,
+      SESSION_USER() AS LoadBy,
+      CURRENT_TIMESTAMP() AS LoadDate,
+      'USAA_BQ_SFTP_AmazonConnectData_Import' AS LoadProcess,
+      SESSION_USER() AS CreateBy,
+      CURRENT_TIMESTAMP() AS CreateDate,
+      'USAA_BQ_SFTP_AmazonConnectData_Import' AS CreateProcess,
+      SESSION_USER() AS UpdateBy,
+      CURRENT_TIMESTAMP() AS UpdateDate,
+      'USAA_BQ_SFTP_AmazonConnectData_Import' AS UpdateProcess,
+      FALSE AS InactiveInd,
+      '' AS InactiveReason, 
+      TIMESTAMP(NULL) AS InactiveDate,
+              ROW_NUMBER() OVER (
+          PARTITION BY
+          ParentSystemId, SystemId, Cosa, Company,RoutingProfile,Duration
+                 ORDER BY LoadDate DESC
+              ) AS rn
+    FROM 
+    ${ref("CltUSAAOds","AmazonConnect-LoginDaily-FileSnapshot-*")}
+      WHERE InactiveInd = FALSE
+    )
+    WHERE rn = 1
+  ) AS S
+  ON T.ParentSystemId = S.ParentSystemId
+    AND T.SystemId = S.SystemId
+    AND T.Cosa = S.Cosa
+    AND T.Company = S.Company
+    AND T.Agent = S.Agent
+    AND T.RoutingProfile = S.RoutingProfile
+    AND T.Duration = S.Duration
+    AND T.InactiveInd      = S.InactiveInd
+
+  WHEN MATCHED THEN
+    UPDATE SET
+ParentSystemId=S.ParentSystemId,
+      SystemId=S.SystemId,
+      Cosa=S.Cosa,
+      Company=S.Company,
+      Agent=S.Agent,
+      FirstName=S.FirstName,
+      LastName=S.LastName,
+      RoutingProfile=S.RoutingProfile,
+      Login=S.Login,
+      Logout=S.Logout,
+      Duration=S.Duration,
+      LoadBy=S.LoadBy,
+      LoadDate=S.LoadDate,
+      LoadProcess                      = S.LoadProcess,
+      CreateBy                         = S.CreateBy,
+      CreateDate                       = S.CreateDate,
+      CreateProcess                    = S.CreateProcess,
+      UpdateBy                         = S.UpdateBy,
+      UpdateDate              = CURRENT_TIMESTAMP(),
+      UpdateProcess           = S.UpdateProcess
+    WHEN NOT MATCHED BY TARGET THEN
+    INSERT (
+      ParentSystemId,
+      SystemId,
+      Cosa,
+      Company,
+      Agent,
+      FirstName,
+      LastName,
+      RoutingProfile,
+      Login,
+      Logout,
+      Duration,
+      LoadBy,
+      LoadDate,
+      LoadProcess,
+      CreateBy,
+      CreateDate,
+      CreateProcess,
+      UpdateBy,
+      UpdateDate,
+      UpdateProcess,
+      InactiveInd,
+      InactiveReason,
+      InactiveDate
+    )
+    VALUES (
+      S.ParentSystemId,
+      S.SystemId,
+      S.Cosa,
+      S.Company,
+      S.Agent,
+      S.FirstName,
+      S.LastName,
+      S.RoutingProfile,
+      S.Login,
+      S.Logout,
+      S.Duration,
+      S.LoadBy,
+      S.LoadDate,
+      S.LoadProcess,
+      S.CreateBy,
+      S.CreateDate,
+      S.CreateProcess,
+      S.UpdateBy,
+      CURRENT_TIMESTAMP(),
+      S.UpdateProcess,
+      FALSE,        -- new rows start active
+      '',           -- no reason
+      NULL          -- no inactive date
+    );
+    SET vdebugMsg = 'Insert executed successfully';
+    COMMIT TRANSACTION;
+
+EXCEPTION WHEN ERROR THEN
+    ROLLBACK TRANSACTION;
+    RAISE USING MESSAGE = CONCAT(
+      IFNULL('Failed while ' || vdebugMsg || '.\n',''),
+      @@error.message, '\n',
+      @@error.statement_text, '\n',
+      @@error.formatted_stack_trace
+    );
+END;

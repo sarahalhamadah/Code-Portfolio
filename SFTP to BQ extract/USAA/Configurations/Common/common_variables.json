@@ -1,0 +1,29 @@
+{
+    "Dev": {
+        "DF_Project": "eid-dw-dev-a5cf",
+        "DF_Region": "us-central1",
+        "DF_Repository_Id": "tte-eid-d-dfm-ttecusaa",
+		"DF_Repository_Id_Ods":"tte-eid-d-dfm-ttecedw",
+        "Bigquery_EDWODS_Stage": "CltUSAAOds",
+        "DF_GitBranch": "develop",
+        "DF_Tags_Ods":"CltUSAAMergeOds"
+    },
+    "Qa": {
+        "DF_Project": "eid-dw-cert-c196",
+        "DF_Region": "us-central1",
+        "DF_Repository_Id": "tte-eid-q-dfm-ttecusaa",
+		"DF_Repository_Id_Ods":"tte-eid-q-dfm-ttecedw",
+        "Bigquery_EDWODS_Stage": "CltUSAAOds",
+        "DF_GitBranch": "qa",
+        "DF_Tags_Ods":"CltUSAAMergeOds"
+    },
+    "Prod": {
+        "DF_Project": "data-warehouse-sbx",
+        "DF_Region": "us-central1",
+        "DF_Repository_Id": "tte-eid-p-dfm-ttecusaa",
+		"DF_Repository_Id_Ods":"tte-eid-p-dfm-ttecedw",
+        "Bigquery_EDWODS_Stage": "CltUSAAOds",
+        "DF_GitBranch": "master",
+        "DF_Tags_Ods":"CltUSAAMergeOds"
+    }
+}

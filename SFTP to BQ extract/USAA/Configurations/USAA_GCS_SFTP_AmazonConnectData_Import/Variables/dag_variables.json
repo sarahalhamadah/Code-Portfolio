@@ -1,0 +1,103 @@
+{
+	"Dev": {
+		"ScheduleInterval": "0 18 * * *",
+		"ProjectNo": "843948894389",
+		"UserName": "GCP_CONN_ID",
+		"JobName": "Dag_Name",
+		"FtpSourcePath": "/inbound/testing/Amazon Connect/Inbound/historical",
+		"ProjectId": "eid-dw-dev-a5cf",
+		"StageDatasetId": "CltUSAAStage",
+		"GCSArchiveBucket": "tte-eid-d-gcs-usaa-archive",
+		"InputFileFormat": "xlsx",
+		"Systems": [
+			{
+				"FileMasks": ["Bank TTEC Amazon Connect Month To Date Extracts*.xlsx"],
+				"BankTTECAmazonConnectMonthToDateExtracts": {
+				"Input_Folder": "Bank_TTEC_Amazon_Connect_Month_To_Date_Extracts"
+				},
+				"ParentSystemId": "3462",
+				"SystemId": "3464",
+				"RunTypeId": "01",
+				"SystemTypeId": "47"
+			},
+			{
+				"FileMasks": ["P&C TTEC Amazon Connect Month To Date Extracts*.xlsx"],
+				"PCTTECAmazonConnectMonthToDateExtracts": {
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Month_To_Date_Extracts"
+				},
+				"ParentSystemId": "3463",
+				"SystemId": "3465",
+				"RunTypeId": "01",
+				"SystemTypeId": "47"
+			}
+		]
+	},
+	"Qa": {
+		"ScheduleInterval": "0 18 * * *",
+		"ProjectNo": "58015455050",
+		"UserName": "GCP_CONN_ID",
+		"JobName": "Dag_Name",
+		"FtpSourcePath": "/inbound/testing/Amazon Connect/Inbound/historical",
+		"ProjectId": "eid-dw-cert-c196",
+		"StageDatasetId": "CltUSAAStage",
+		"GCSArchiveBucket": "tte-eid-q-gcs-usaa-archive",
+		"Secret_ID": "58015455050",
+		"InputFileFormat": "xlsx",
+		"Systems": [
+			{
+				"FileMasks": ["Bank TTEC Amazon Connect Month To Date Extracts*.xlsx"],
+				"BankTTECAmazonConnectMonthToDateExtracts": {
+				"Input_Folder": "Bank_TTEC_Amazon_Connect_Month_To_Date_Extracts"
+				},
+				"ParentSystemId": "3462",
+				"SystemId": "3464",
+				"RunTypeId": "01",
+				"SystemTypeId": "47"
+			},
+			{
+				"FileMasks": ["P&C TTEC Amazon Connect Month To Date Extracts*.xlsx"],
+				"PCTTECAmazonConnectMonthToDateExtracts": {
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Month_To_Date_Extracts"
+				},
+				"ParentSystemId": "3463",
+				"SystemId": "3465",
+				"RunTypeId": "01",
+				"SystemTypeId": "47"
+			}
+		]
+	},
+	"Prod": {
+		"ScheduleInterval": "0 18 * * *",
+		"ProjectNo": "405746011260",
+		"UserName": "GCP_CONN_ID",
+		"JobName": "Dag_Name",
+		"FtpSourcePath": "/inbound/prod",
+		"ProjectId": "data-warehouse-sbx",
+		"StageDatasetId": "CltUSAAStage",
+		"GCSArchiveBucket": "tte-eid-p-gcs-usaa-archive",
+		"InputFileFormat": "xlsx",
+		"Systems": [
+			{
+				"FileMasks": ["Bank TTEC Amazon Connect Month To Date Extracts*.xlsx"],
+				"BankTTECAmazonConnectMonthToDateExtracts": {
+				"Input_Folder": "Bank_TTEC_Amazon_Connect_Month_To_Date_Extracts"
+				},
+				"ParentSystemId": "3462",
+				"SystemId": "3464",
+				"RunTypeId": "01",
+				"SystemTypeId": "47"
+			},
+			{
+				"FileMasks": ["P&C TTEC Amazon Connect Month To Date Extracts*.xlsx"],
+				"PCTTECAmazonConnectMonthToDateExtracts": {
+					"Input_Folder": "PC_TTEC_Amazon_Connect_Month_To_Date_Extracts"
+				},
+				"ParentSystemId": "3463",
+				"SystemId": "3465",
+				"RunTypeId": "01",
+				"SystemTypeId": "47"
+			}
+		]
+	}
+}
+

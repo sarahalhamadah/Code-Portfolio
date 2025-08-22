@@ -1,0 +1,268 @@
+config {
+  type: "operations",
+  database: "CltUSAAStage",
+  tags: ["CltUSAAMergeOds"]
+}
+/***************************************************************************************************************
+  Move Amazon Connect from Filesnapshot to EdwOds
+  Created by: Sarah Al-hamadah
+  Created date: 02/01/2025
+***************************************************************************************************************/
+
+DECLARE vdebugMsg STRING;
+
+BEGIN
+  -- Start transaction
+  BEGIN TRANSACTION;
+
+  ------------------------------------------------------------------------
+  -- Merge latest deduplicated snapshot rows into the target table
+  -- (no deletes, no extra update‐by‐source branch)
+  ------------------------------------------------------------------------
+  MERGE 
+  ${ref("EdwOds","AmazonConnect-AgentInterval")} 
+  AS T
+  USING (
+        SELECT * EXCEPT(rn) FROM (
+    SELECT 
+      ParentSystemId,
+      SystemId,
+      Cosa,
+      Company,
+      Agent,
+      RoutingProfile,
+      CAST(TIMESTAMP(StartInterval) AS DATETIME) AS StartInterval,
+      CAST(TIMESTAMP(EndInterval)   AS DATETIME) AS EndInterval,
+      CAST(TIMESTAMP(StartInterval) AS DATETIME) AS UtcStartInterval,
+      CAST(TIMESTAMP(EndInterval)   AS DATETIME) AS UtcEndInterval,
+      AgentFirstName,
+      AgentLastName,
+      CAST(AgentIdleTime                AS NUMERIC) AS AgentIdleTime,
+      CAST(AgentOnContactTime           AS NUMERIC) AS AgentOnContactTime,
+      CAST(NonproductiveTime            AS NUMERIC) AS NonproductiveTime,
+      CAST(Occupancy                    AS NUMERIC) AS Occupancy,
+      CAST(OnlineTime                   AS NUMERIC) AS OnlineTime,
+      CAST(BackOffSptInsSptIntradiemTime AS NUMERIC) AS BackOffSptInsSptIntradiemTime,
+      CAST(DevelopmentLabActivitiesTime  AS NUMERIC) AS DevelopmentLabActivitiesTime,
+      CAST(CATClaimsOnlyTime             AS NUMERIC) AS CATClaimsOnlyTime,
+      CAST(ComputerITIssuesHelpDeskTime  AS NUMERIC) AS ComputerITIssuesHelpDeskTime,
+      CAST(PersonalUnscheduledBreakTime  AS NUMERIC) AS PersonalUnscheduledBreakTime,
+      CAST(OutboundCallingTime           AS NUMERIC) AS OutboundCallingTime,
+      CAST(MemberSupportTime             AS NUMERIC) AS MemberSupportTime,
+      CAST(MeetingTime                   AS NUMERIC) AS MeetingTime,
+      CAST(CoachingTime                  AS NUMERIC) AS CoachingTime,
+      CAST(AfterContactWorkTime          AS NUMERIC) AS AfterContactWorkTime,
+      CAST(AgentInteractionTime          AS NUMERIC) AS AgentInteractionTime,
+      CAST(AverageAfterContactWorkTime   AS NUMERIC) AS AverageAfterContactWorkTime,
+      CAST(AverageAgentInteractionTime   AS NUMERIC) AS AverageAgentInteractionTime,
+      CAST(AverageHandleTime             AS NUMERIC) AS AverageHandleTime,
+      CAST(ContactHandleTime             AS NUMERIC) AS ContactHandleTime,
+      CAST(ROUND(CAST(ContactsAgentHungUpFirst AS FLOAT64)) AS INT64) AS ContactsAgentHungUpFirst,
+      CAST(ROUND(CAST(ContactsHandled            AS FLOAT64)) AS INT64) AS ContactsHandled,
+      CAST(ROUND(CAST(ContactsTransferredOut     AS FLOAT64)) AS INT64) AS ContactsTransferredOut,
+      LoadBy,
+      LoadDate,
+      'USAA_BQ_SFTP_AmazonConnectData_Import' AS LoadProcess,
+      SESSION_USER()      AS CreateBy,
+      CURRENT_TIMESTAMP() AS CreateDate,
+      'USAA_BQ_SFTP_AmazonConnectData_Import' AS CreateProcess,
+      SESSION_USER()      AS UpdateBy,
+      CURRENT_TIMESTAMP() AS UpdateDate,
+      'USAA_BQ_SFTP_AmazonConnectData_Import' AS UpdateProcess,
+      FALSE AS InactiveInd,
+      ''    AS InactiveReason,
+      TIMESTAMP(NULL) AS InactiveDate,
+       ROW_NUMBER() OVER (
+          PARTITION BY
+          ParentSystemId,
+          SystemId,
+          Cosa,
+          Company,
+          Agent,
+          RoutingProfile,
+          CAST(TIMESTAMP(StartInterval) AS DATETIME),
+          CAST(TIMESTAMP(EndInterval)   AS DATETIME)
+        ORDER BY
+          LoadDate DESC
+       ) AS rn
+      FROM
+       ${ref("CltUSAAOds","AmazonConnect-AgentInterval-FileSnapshot-*")} 
+    WHERE
+      InactiveInd = FALSE
+      AND SAFE.PARSE_TIMESTAMP('%Y-%m-%dT%H:%M:%E*S',SUBSTR(StartInterval,1,19)) IS NOT NULL
+    AND SAFE.PARSE_TIMESTAMP('%Y-%m-%dT%H:%M:%E*S',SUBSTR(EndInterval,1,19))   IS NOT NULL
+        )
+WHERE rn = 1
+  ) AS S
+  ON  
+    T.ParentSystemId      = S.ParentSystemId
+    AND T.SystemId         = S.SystemId
+    AND T.Cosa             = S.Cosa
+    AND T.Company          = S.Company
+    AND T.Agent            = S.Agent
+    AND T.RoutingProfile   = S.RoutingProfile
+    AND T.StartInterval = S.StartInterval
+    AND T.EndInterval =   S.EndInterval
+    AND T.InactiveInd      = S.InactiveInd
+    
+  WHEN MATCHED THEN
+
+    UPDATE SET
+
+  ParentSystemId = S.ParentSystemId,
+      SystemId = S.SystemId,
+      Cosa = S.Cosa,
+      Company = S.Company,
+      Agent = S.Agent,
+      RoutingProfile = S.RoutingProfile,
+      StartInterval = S.StartInterval,
+      EndInterval = S.EndInterval,
+      AgentFirstName = S.AgentFirstName,
+      AgentLastName = S.AgentLastName,
+      AgentIdleTime = S.AgentIdleTime,
+      AgentOnContactTime = S.AgentOnContactTime,
+      NonproductiveTime= S.NonproductiveTime,
+      Occupancy = S.Occupancy,
+      OnlineTime = S.OnlineTime,
+      BackOffSptInsSptIntradiemTime = S.BackOffSptInsSptIntradiemTime,
+      DevelopmentLabActivitiesTime = S.DevelopmentLabActivitiesTime,
+      CATClaimsOnlyTime = S.CATClaimsOnlyTime,
+      ComputerITIssuesHelpDeskTime = S.ComputerITIssuesHelpDeskTime,
+      PersonalUnscheduledBreakTime = S.PersonalUnscheduledBreakTime,
+      OutboundCallingTime = S.OutboundCallingTime,
+      MemberSupportTime = S.MemberSupportTime,
+      MeetingTime = S.MeetingTime,
+      CoachingTime = S.CoachingTime,
+      AfterContactWorkTime = S.AfterContactWorkTime,
+      AgentInteractionTime = S.AgentInteractionTime,
+      AverageAfterContactWorkTime = S.AverageAfterContactWorkTime,
+      AverageAgentInteractionTime = S.AverageAgentInteractionTime,
+      AverageHandleTime = S.AverageHandleTime,
+      ContactHandleTime = S.ContactHandleTime,
+      ContactsAgentHungUpFirst = S.ContactsAgentHungUpFirst,
+      ContactsHandled = S.ContactsHandled,
+      ContactsTransferredOut = S.ContactsTransferredOut,
+      LoadBy = S.LoadBy,
+      LoadDate = S.LoadDate,
+      LoadProcess                      = S.LoadProcess,
+      CreateBy                         = S.CreateBy,
+      CreateDate                       = S.CreateDate,
+      CreateProcess                    = S.CreateProcess,
+      UpdateBy                         = S.UpdateBy,
+      UpdateDate              = CURRENT_TIMESTAMP(),
+      UpdateProcess           = S.UpdateProcess
+
+
+  WHEN NOT MATCHED BY TARGET THEN
+    INSERT (
+      ParentSystemId,
+      SystemId,
+      Cosa,
+      Company,
+      Agent,
+      RoutingProfile,
+      StartInterval,
+      EndInterval,
+      UtcStartInterval,
+      UtcEndInterval,
+      AgentFirstName,
+      AgentLastName,
+      AgentIdleTime,
+      AgentOnContactTime,
+      NonproductiveTime,
+      Occupancy,
+      OnlineTime,
+      BackOffSptInsSptIntradiemTime,
+      DevelopmentLabActivitiesTime,
+      CATClaimsOnlyTime,
+      ComputerITIssuesHelpDeskTime,
+      PersonalUnscheduledBreakTime,
+      OutboundCallingTime,
+      MemberSupportTime,
+      MeetingTime,
+      CoachingTime,
+      AfterContactWorkTime,
+      AgentInteractionTime,
+      AverageAfterContactWorkTime,
+      AverageAgentInteractionTime,
+      AverageHandleTime,
+      ContactHandleTime,
+      ContactsAgentHungUpFirst,
+      ContactsHandled,
+      ContactsTransferredOut,
+      LoadBy,
+      LoadDate,
+      LoadProcess,
+      CreateBy,
+      CreateDate,
+      CreateProcess,
+      UpdateBy,
+      UpdateDate,
+      UpdateProcess,
+      InactiveInd,
+      InactiveReason,
+      InactiveDate
+    )
+    VALUES (
+      S.ParentSystemId,
+      S.SystemId,
+      S.Cosa,
+      S.Company,
+      S.Agent,
+      S.RoutingProfile,
+      S.StartInterval,
+      S.EndInterval,
+      S.UtcStartInterval,
+      S.UtcEndInterval,
+      S.AgentFirstName,
+      S.AgentLastName,
+      S.AgentIdleTime,
+      S.AgentOnContactTime,
+      S.NonproductiveTime,
+      S.Occupancy,
+      S.OnlineTime,
+      S.BackOffSptInsSptIntradiemTime,
+      S.DevelopmentLabActivitiesTime,
+      S.CATClaimsOnlyTime,
+      S.ComputerITIssuesHelpDeskTime,
+      S.PersonalUnscheduledBreakTime,
+      S.OutboundCallingTime,
+      S.MemberSupportTime,
+      S.MeetingTime,
+      S.CoachingTime,
+      S.AfterContactWorkTime,
+      S.AgentInteractionTime,
+      S.AverageAfterContactWorkTime,
+      S.AverageAgentInteractionTime,
+      S.AverageHandleTime,
+      S.ContactHandleTime,
+      S.ContactsAgentHungUpFirst,
+      S.ContactsHandled,
+      S.ContactsTransferredOut,
+      S.LoadBy,
+      S.LoadDate,
+      S.LoadProcess,
+      S.CreateBy,
+      S.CreateDate,
+      S.CreateProcess,
+      S.UpdateBy,
+      CURRENT_TIMESTAMP(),
+      S.UpdateProcess,
+      FALSE,        -- new rows start active
+      '',           -- no reason
+      NULL          -- no inactive date
+    );
+
+
+  SET vdebugMsg = 'Union executed successfully';
+  COMMIT TRANSACTION;
+
+EXCEPTION WHEN ERROR THEN
+  ROLLBACK TRANSACTION;
+  RAISE USING MESSAGE = CONCAT(
+    IFNULL('Failed while ' || vdebugMsg || '.\n', ''),
+    @@error.message, '\n',
+    @@error.statement_text, '\n',
+    @@error.formatted_stack_trace
+  );
+END;
